@@ -161,7 +161,7 @@ router.post('/new', auth.required, async (req, res, next) => {
             subject: `Your last generation: ${newproducts._id} ✔`,
             text: 'Important',
             attachDataUrls: true,
-            html: `Dear user, <p>You have generated a document using encrygen with the following details: </p><h4>key: ${invoice.key}</h4> </br> <img src= ${img} ><p>Best,</p><p>EncrygeN Team</p> `
+            html: `Dear user, <p>You have generated a document using encrygen with the following details: </p><h4>key: ${invoice.key}</h4> </br> <img src= ${img} >${'https://encrygen.co.uk/invoice/'+encodeURI(newproducts.encr)}<p>Best,</p><p>EncrygeN Team</p> `
           });
        res.status(201).json(newproducts);
 
