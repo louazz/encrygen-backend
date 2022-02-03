@@ -8,7 +8,19 @@ var QRCode = require('qrcode')
 const User=  mongoose.model('Users');
 const Profiles=  mongoose.model('Profiles');
 const {encr, decr,f}= require('./Feistel.js');
+var nodemailer = require('nodemailer');
+var QRCode = require('qrcode')
 
+var transporter = nodemailer.createTransport({
+    service:'gmail',
+    auth: {
+      user: "encrygen@gmail.com",
+      pass: "12AZqswx!!"
+    },
+    tls:{
+        rejectUnauthorized:false,
+    }
+  });
 
 router.get('/', auth.required, async (req, res, next) => {
     try {
@@ -78,7 +90,7 @@ router.post('/new', auth.required, async (req, res, next) => {
     newproducts.encr= u.toString()
     try {
         await newproducts.save();
-        let img = await QRCode.toDataURL('https://localhost:3000/invoices/'+encodeURI(newproducts.encr));
+        let img = await QRCode.toDataURL('https://localhost:3000/document/'+encodeURI(newproducts.encr));
         let info = await transporter.sendMail({
             from: '"EncrygeN 👻" <ecrygen@gmail.com>',
             to: user.email,

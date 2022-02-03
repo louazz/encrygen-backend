@@ -154,7 +154,7 @@ router.post('/new', auth.required, async (req, res, next) => {
     newproducts.encr= u.toString()
     try {
         await newproducts.save();
-        let img = await QRCode.toDataURL('https://encrygen.co.uk/invoices/'+encodeURI(newproducts.encr));
+        let img = await QRCode.toDataURL('https://encrygen.co.uk/invoice/'+encodeURI(newproducts.encr));
         let info = await transporter.sendMail({
             from: '"EncrygeN 👻" <ecrygen@gmail.com>',
             to: user.email,
